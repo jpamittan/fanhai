@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Services\Company\CompanyService;
+use App\Services\Company\QueryCompanyService;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    private $companyService;
+    private $queryCompanyService;
   
     /**
      * Constructor
      *
-     * @param \Services\Company\CompanyService
+     * @param \Services\Company\QueryCompanyService
      */
-    public function __construct(CompanyService $companyService)
+    public function __construct(QueryCompanyService $queryCompanyService)
     {
-        $this->companyService = $companyService;
+        $this->queryCompanyService = $queryCompanyService;
     }
 
     /**
@@ -27,7 +27,7 @@ class CompanyController extends Controller
      */
     public function index() : Object
     {
-        $companies = $this->companyService->getAllPaginatedRecords();
+        $companies = $this->queryCompanyService->getAllPaginatedRecords();
 
         return response()->json($companies, 200);
     }
@@ -40,7 +40,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request) : Object
     {
-        $company = $this->companyService->create($request);
+        $company = $this->queryCompanyService->create($request);
 
         return response()->json($company, 201);
     }
@@ -53,7 +53,7 @@ class CompanyController extends Controller
      */
     public function show(Request $request) : Object
     {
-        $company = $this->companyService->findByID($request);
+        $company = $this->queryCompanyService->findByID($request);
 
         return response()->json($company, 200);
     }
@@ -66,7 +66,7 @@ class CompanyController extends Controller
      */
     public function update(Request $request) : Object
     {
-        $company = $this->companyService->udpateByID($request);
+        $company = $this->queryCompanyService->udpateByID($request);
 
         return response()->json($company, 200);
     }
@@ -79,7 +79,7 @@ class CompanyController extends Controller
      */
     public function delete(Request $request) : Object
     {
-        $company = $this->companyService->deleteById($request);
+        $company = $this->queryCompanyService->deleteById($request);
 
         if($company) {
             return response()->json([

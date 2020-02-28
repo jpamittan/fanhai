@@ -25,5 +25,12 @@ class Message extends Model
      *
      * @var array
      */
-    protected $fillable = ['from', 'to', 'msg', 'type'];
+    protected $fillable = ['from', 'to', 'title', 'msg', 'type'];
+
+    /**
+     * Timestamp on updated_at column set to false
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 }

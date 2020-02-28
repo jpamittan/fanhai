@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Services\Phonebook\PhonebookService;
+use App\Services\Phonebook\QueryPhonebookService;
 use Illuminate\Http\Request;
 
 class PhonebookController extends Controller
 {
-    private $phonebookService;
+    private $queryPhonebookService;
   
     /**
      * Constructor
      *
-     * @param \Services\Phonebook\PhonebookService
+     * @param \Services\Phonebook\QueryPhonebookService
      */
-    public function __construct(PhonebookService $phonebookService)
+    public function __construct(QueryPhonebookService $queryPhonebookService)
     {
-        $this->phonebookService = $phonebookService;
+        $this->queryPhonebookService = $queryPhonebookService;
     }
 
     /**
@@ -27,7 +27,7 @@ class PhonebookController extends Controller
      */
     public function index()
     {
-        $phonebooks = $this->phonebookService->getAllPaginatedRecords();
+        $phonebooks = $this->queryPhonebookService->getAllPaginatedRecords();
 
         return response()->json($phonebooks, 200);
     }
@@ -40,7 +40,7 @@ class PhonebookController extends Controller
      */
     public function store(Request $request)
     {
-        $phonebook = $this->phonebookService->create($request);
+        $phonebook = $this->queryPhonebookService->create($request);
 
         return response()->json($phonebook, 201);
     }
@@ -53,7 +53,7 @@ class PhonebookController extends Controller
      */
     public function show(Request $request)
     {
-         $phonebook = $this->phonebookService->findByID($request);
+         $phonebook = $this->queryPhonebookService->findByID($request);
 
         return response()->json($phonebook, 200);
     }
@@ -66,7 +66,7 @@ class PhonebookController extends Controller
      */
     public function update(Request $request)
     {
-        $phonebook = $this->phonebookService->udpateByID($request);
+        $phonebook = $this->queryPhonebookService->udpateByID($request);
 
         return response()->json($phonebook, 200);
     }
@@ -79,7 +79,7 @@ class PhonebookController extends Controller
      */
     public function delete(Request $request)
     {
-        $phonebook = $this->phonebookService->deleteById($request);
+        $phonebook = $this->queryPhonebookService->deleteById($request);
 
         if($phonebook) {
             return response()->json([

@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface EmailServiceInterface
 {
-    public function sendMail(Request $request) : object;
+    public function sendMail(Request $request) : bool;
 }

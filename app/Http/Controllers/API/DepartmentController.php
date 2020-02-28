@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Services\Department\DepartmentService;
+use App\Services\Department\QueryDepartmentService;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    private $departmentService;
+    private $queryDepartmentService;
   
     /**
      * Constructor
      *
-     * @param \Services\Department\DepartmentService
+     * @param \Services\Department\QueryDepartmentService
      */
-    public function __construct(DepartmentService $departmentService)
+    public function __construct(QueryDepartmentService $queryDepartmentService)
     {
-        $this->departmentService = $departmentService;
+        $this->queryDepartmentService = $queryDepartmentService;
     }
 
     /**
@@ -27,7 +27,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = $this->departmentService->getAllPaginatedRecords();
+        $departments = $this->queryDepartmentService->getAllPaginatedRecords();
 
         return response()->json($departments, 200);
     }
@@ -40,7 +40,7 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $department = $this->departmentService->create($request);
+        $department = $this->queryDepartmentService->create($request);
 
         return response()->json($department, 201);
     }
@@ -53,7 +53,7 @@ class DepartmentController extends Controller
      */
     public function show(Request $request)
     {
-         $department = $this->departmentService->findByID($request);
+         $department = $this->queryDepartmentService->findByID($request);
 
         return response()->json($department, 200);
     }
@@ -66,7 +66,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request)
     {
-        $department = $this->departmentService->udpateByID($request);
+        $department = $this->queryDepartmentService->udpateByID($request);
 
         return response()->json($department, 200);
     }
@@ -79,7 +79,7 @@ class DepartmentController extends Controller
      */
     public function delete(Request $request)
     {
-        $department = $this->departmentService->deleteById($request);
+        $department = $this->queryDepartmentService->deleteById($request);
 
         if($department) {
             return response()->json([

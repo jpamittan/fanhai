@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Services\Employee\EmployeeService;
+use App\Services\Employee\QueryEmployeeService;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    private $employeeService;
+    private $queryEmployeeService;
   
     /**
      * Constructor
      *
-     * @param \Services\Employee\EmployeeService
+     * @param \Services\Employee\QueryEmployeeService
      */
-    public function __construct(EmployeeService $employeeService)
+    public function __construct(QueryEmployeeService $queryEmployeeService)
     {
-        $this->employeeService = $employeeService;
+        $this->queryEmployeeService = $queryEmployeeService;
     }
 
     /**
@@ -27,7 +27,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = $this->employeeService->getAllPaginatedRecords();
+        $employees = $this->queryEmployeeService->getAllPaginatedRecords();
 
         return response()->json($employees, 200);
     }
@@ -40,7 +40,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = $this->employeeService->create($request);
+        $employee = $this->queryEmployeeService->create($request);
 
         return response()->json($employee, 201);
     }
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
      */
     public function show(Request $request)
     {
-         $employee = $this->employeeService->findByID($request);
+         $employee = $this->queryEmployeeService->findByID($request);
 
         return response()->json($employee, 200);
     }
@@ -66,7 +66,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request)
     {
-        $employee = $this->employeeService->udpateByID($request);
+        $employee = $this->queryEmployeeService->udpateByID($request);
 
         return response()->json($employee, 200);
     }
@@ -79,7 +79,7 @@ class EmployeeController extends Controller
      */
     public function delete(Request $request)
     {
-        $employee = $this->employeeService->deleteById($request);
+        $employee = $this->queryEmployeeService->deleteById($request);
 
         if($employee) {
             return response()->json([
