@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeeRequest;
 use App\Services\Employee\QueryEmployeeService;
-use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -13,7 +13,7 @@ class EmployeeController extends Controller
     /**
      * Constructor
      *
-     * @param \Services\Employee\QueryEmployeeService
+     * @param \Services\Employee\QueryEmployeeService $queryEmployeeService
      */
     public function __construct(QueryEmployeeService $queryEmployeeService)
     {
@@ -25,70 +25,90 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() : Object
     {
-        $employees = $this->queryEmployeeService->getAllPaginatedRecords();
+        try {
+            $employees = $this->queryEmployeeService->getAllPaginatedRecords();
 
-        return response()->json($employees, 200);
+            return response()->json($employees, 200);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\EmployeeRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request) : Object
     {
-        $employee = $this->queryEmployeeService->create($request);
+        try {
+            $employee = $this->queryEmployeeService->create($request);
 
-        return response()->json($employee, 201);
+            return response()->json($employee, 201);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(int $id) : Object
     {
-         $employee = $this->queryEmployeeService->findByID($request);
+        try {
+            $employee = $this->queryEmployeeService->findByID($id);
 
-        return response()->json($employee, 200);
+            return response()->json($employee, 200);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\EmployeeRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(EmployeeRequest $request) : Object
     {
-        $employee = $this->queryEmployeeService->udpateByID($request);
+        try {
+            $employee = $this->queryEmployeeService->udpateByID($request);
 
-        return response()->json($employee, 200);
+            return response()->json($employee, 200);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request)
+    public function delete(int $id) : Object
     {
-        $employee = $this->queryEmployeeService->deleteById($request);
+        try {
+            $employee = $this->queryEmployeeService->deleteById($id);
 
-        if($employee) {
-            return response()->json([
-                "msg" => "Record deleted successfully."
-            ], 200);
-        } else {
-            return response()->json([
-                "msg" => "No record to be deleted."
-            ], 404);
+            if($employee) {
+                return response()->json([
+                    "msg" => "Record deleted successfully."
+                ], 200);
+            } else {
+                return response()->json([
+                    "msg" => "No record to be deleted."
+                ], 404);
+            }
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
         }
     }
 }

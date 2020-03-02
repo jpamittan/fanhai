@@ -23,7 +23,15 @@ class Phonebook extends Model
      /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var arrays
      */
-    protected $fillable = ['employee_id', 'email', 'contact'];
+    protected $fillable = [
+        'employee_id',
+        'address',
+        'work_email',
+        'email',
+        'home_phone',
+        'work_phone',
+        'mobile_phone'
+    ];
 }

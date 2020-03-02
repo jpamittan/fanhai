@@ -10,16 +10,32 @@ class QueryCompanyService implements BaseServiceInterface
 {
     protected $company;
 
+    /**
+     * Constructor
+     *
+     * @param App\Model\Company $company
+     */
     public function __construct(Company $company)
     {
         $this->company = $company;
     }
 
+    /**
+     * Get paginated company data
+     *
+     * @return object
+     */
     public function getAllPaginatedRecords() : object
     {
         return $this->company->orderBy('created_at', 'desc')->paginate();
     }
 
+    /**
+     * Create Company
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return object
+     */
     public function create(Request $request) : object
     {
         $company = $this->company->create([
@@ -33,11 +49,23 @@ class QueryCompanyService implements BaseServiceInterface
         return $company;
     }
 
-    public function findByID(Request $request) : object
+    /**
+     * Get Company by Id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function findByID(int $id) : object
     {
-        return $this->company->find($request->route('id'));
+        return $this->company->find($id);
     }
 
+    /**
+     * Update Company by Id
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return object
+     */
     public function udpateByID(Request $request) : object
     {
         $company = $this->company->find($request->route('id'));
@@ -62,8 +90,14 @@ class QueryCompanyService implements BaseServiceInterface
         return $company;
     }
 
-    public function deleteById(Request $request) : bool
+    /**
+     * Delete Company by Id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function deleteById(int $id) : bool
     {
-        return $this->company->destroy($request->route('id'));
+        return $this->company->destroy($id);
     }
 }

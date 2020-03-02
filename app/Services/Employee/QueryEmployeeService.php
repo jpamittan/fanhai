@@ -10,16 +10,32 @@ class QueryEmployeeService implements BaseServiceInterface
 {
     protected $employee;
 
+    /**
+     * Constructor
+     *
+     * @param App\Model\Employee $employee
+     */
     public function __construct(Employee $employee)
     {
         $this->employee = $employee;
     }
 
+    /**
+     * Get paginated emplopyee data
+     *
+     * @return object
+     */
     public function getAllPaginatedRecords() : object
     {
         return $this->employee->where('status', 1)->paginate();
     }
 
+    /**
+     * Create Employee
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return object
+     */
     public function create(Request $request) : object
     {
         $employee = $this->employee->create([
@@ -33,13 +49,25 @@ class QueryEmployeeService implements BaseServiceInterface
         return $employee;
     }
 
-    public function findByID(Request $request) : object
+    /**
+     * Get Employee by Id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function findByID(int $id) : object
     {
-        return $this->employee->where('department_id', $request->route('id'))
+        return $this->employee->where('department_id', $id)
             ->join('phonebook', 'employee.id', '=', 'phonebook.employee_id')
             ->get();
     }
 
+    /**
+     * Update Employee by Id
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return object
+     */
     public function udpateByID(Request $request) : object
     {
         $employee = $this->employee->find($request->route('id'));
@@ -58,14 +86,23 @@ class QueryEmployeeService implements BaseServiceInterface
         if($request->input('position')) {
             $employee->position = $request->input('position');
         }
+        if($request->input('status')) {
+            $employee->status = $request->input('status');
+        }
         $employee->save();
 
         return $employee;
     }
 
-    public function deleteById(Request $request) : bool
+    /**
+     * Disable Employee by Id
+     *
+     * @param int $id
+     * @return object
+     */
+    public function deleteById(int $id) : bool
     {
-        return $this->employee->where('id', $request->route('id'))
+        return $this->employee->where('id', $id)
         ->where('status', 1)
         ->update(['status' => 0]);
     }
