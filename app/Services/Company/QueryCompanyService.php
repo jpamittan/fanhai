@@ -17,7 +17,7 @@ class QueryCompanyService implements BaseServiceInterface
 
     public function getAllPaginatedRecords() : object
     {
-        return $this->company->paginate();
+        return $this->company->orderBy('created_at', 'desc')->paginate();
     }
 
     public function create(Request $request) : object
@@ -26,7 +26,8 @@ class QueryCompanyService implements BaseServiceInterface
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'email' => $request->input('email'),
-            'contact' => $request->input('contact')
+            'contact' => $request->input('contact'),
+            'logo' => $request->input('logo')
         ]);
 
         return $company;
@@ -52,6 +53,9 @@ class QueryCompanyService implements BaseServiceInterface
         }
         if($request->input('contact')) {
             $company->contact = $request->input('contact');
+        }
+        if($request->input('logo')) {
+            $company->logo = $request->input('logo');
         }
         $company->save();
 

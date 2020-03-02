@@ -5,6 +5,7 @@ namespace App\Services\Department;
 use App\Model\Department;
 use App\Services\BaseServiceInterface;
 use Illuminate\Http\Request;
+use DB;
 
 class QueryDepartmentService implements BaseServiceInterface
 {
@@ -32,7 +33,7 @@ class QueryDepartmentService implements BaseServiceInterface
 
     public function findByID(Request $request) : object
     {
-        return $this->department->find($request->route('id'));
+        return $this->department->where('company_id', $request->route('id'))->get();
     }
 
     public function udpateByID(Request $request) : object

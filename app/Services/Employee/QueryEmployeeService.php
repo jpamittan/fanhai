@@ -35,7 +35,9 @@ class QueryEmployeeService implements BaseServiceInterface
 
     public function findByID(Request $request) : object
     {
-        return $this->employee->find($request->route('id'));
+        return $this->employee->where('department_id', $request->route('id'))
+            ->join('phonebook', 'employee.id', '=', 'phonebook.employee_id')
+            ->get();
     }
 
     public function udpateByID(Request $request) : object

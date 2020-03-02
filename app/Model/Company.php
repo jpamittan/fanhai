@@ -25,7 +25,7 @@ class Company extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'address', 'email', 'contact'];
+    protected $fillable = ['name', 'address', 'email', 'contact', 'logo'];
 
     /**
      * Get the departments
