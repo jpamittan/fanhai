@@ -3,10 +3,10 @@
 namespace App\Services\Employee;
 
 use App\Model\Employee;
-use App\Services\BaseServiceInterface;
+use App\Services\QueryInterface;
 use Illuminate\Http\Request;
 
-class QueryEmployeeService implements BaseServiceInterface
+class QueryEmployeeService implements QueryInterface
 {
     protected $employee;
 
@@ -55,7 +55,7 @@ class QueryEmployeeService implements BaseServiceInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : object
+    public function findByID(int $id) : ?object
     {
         return $this->employee->where('department_id', $id)
             ->join('phonebook', 'employee.id', '=', 'phonebook.employee_id')

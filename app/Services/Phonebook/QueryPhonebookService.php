@@ -3,10 +3,10 @@
 namespace App\Services\Phonebook;
 
 use App\Model\Phonebook;
-use App\Services\BaseServiceInterface;
+use App\Services\QueryInterface;
 use Illuminate\Http\Request;
 
-class QueryPhonebookService implements BaseServiceInterface
+class QueryPhonebookService implements QueryInterface
 {
     protected $phonebook;
 
@@ -57,7 +57,7 @@ class QueryPhonebookService implements BaseServiceInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : object
+    public function findByID(int $id) : ?object
     {
         return $this->phonebook->find($id);
     }

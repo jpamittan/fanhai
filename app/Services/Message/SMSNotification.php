@@ -2,12 +2,12 @@
 
 namespace App\Services\Message;
 
-use App\Services\SMSServiceInterface;
+use App\Services\NotificationInterface;
 use Illuminate\Http\Request;
 
-class SMSMessageService implements SMSServiceInterface
+class SMSNotification implements NotificationInterface
 {
-    public function sendSMS(Request $request) : bool
+    public function send(Request $request) : bool
     {
         try {
 			$ch = curl_init();

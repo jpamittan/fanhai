@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageRequest;
 use App\Services\Message\QueryMessageService;
-use App\Services\Message\EmailMessageService;
-use App\Services\Message\SMSMessageService;
-use Illuminate\Http\Request;
+use App\Services\Message\Factories\NotificationFactory;
 
 class MessageController extends Controller
 {
@@ -18,14 +17,10 @@ class MessageController extends Controller
      * Constructor
      *
      * @param \Services\Message\QueryMessageService
-     * @param \Services\Message\EmailMessageService
-     * @param \Services\Message\SMSMessageService
      */
-    public function __construct(QueryMessageService $queryMessageService, EmailMessageService $emailMessageService, SMSMessageService $smsMessageService)
+    public function __construct(QueryMessageService $queryMessageService)
     {
         $this->queryMessageService = $queryMessageService;
-        $this->emailMessageService = $emailMessageService;
-        $this->smsMessageService = $smsMessageService;
     }
 
     /**
@@ -33,63 +28,54 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() : Object
     {
-        $messages = $this->queryMessageService->getAllPaginatedRecords();
+        try {
+            $messages = $this->queryMessageService->getAllPaginatedRecords();
 
-        return response()->json($messages, 200);
+            return response()->json($messages, 200);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(int $id) : Object
     {
-        $message = $this->queryMessageService->findByID($request);
+        try {
+            $message = $this->queryMessageService->findByID($id);
 
-        return response()->json($message, 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function sendMail(Request $request)
-    {
-        if($this->emailMessageService->sendMail($request)) {
-            $request->request->add(['type' => 'email']);
-            $message = $this->queryMessageService->create($request);
-
-            return response()->json($message, 201);
-        } else {
-            return response()->json([
-                "msg" => "An error has occured. Please try again."
-            ], 501);
+            return response()->json($message, 200);
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
         }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Send a notification
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\MessageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function sendSMS(Request $request)
+    public function send(MessageRequest $request) : Object
     {
-        if($this->smsMessageService->sendSMS($request)) {
-            $request->request->add(['type' => 'sms']);
-            $message = $this->queryMessageService->create($request);
+        try {
+            $notificationFactory = new NotificationFactory();
+            $notification = $notificationFactory->initializeNotification($request->type);
+            if($notification->send($request)) {
+                $message = $this->queryMessageService->create($request);
 
-            return response()->json($message, 201);
-        } else {
-            return response()->json([
-                "msg" => "An error has occured. Please try again."
-            ], 501);
+                return response()->json($message, 200);
+            } else {
+                return response()->json(["message" => "Sending notification failed. Please try again."], 501);
+            }
+        } catch(Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 501);
         }
     }
 }

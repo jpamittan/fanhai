@@ -3,11 +3,11 @@
 namespace App\Services\Department;
 
 use App\Model\Department;
-use App\Services\BaseServiceInterface;
+use App\Services\QueryInterface;
 use Illuminate\Http\Request;
 use DB;
 
-class QueryDepartmentService implements BaseServiceInterface
+class QueryDepartmentService implements QueryInterface
 {
     protected $department;
 
@@ -53,7 +53,7 @@ class QueryDepartmentService implements BaseServiceInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : object
+    public function findByID(int $id) : ?object
     {
         return $this->department->where('company_id', $id)->get();
     }

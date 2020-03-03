@@ -37,5 +37,4 @@ Route::delete('phonebook/{id}', 'API\PhonebookController@delete');
 
 Route::get('message', 'API\MessageController@index');
 Route::get('message/{id}', 'API\MessageController@show');
-Route::post('message/mail', 'API\MessageController@sendMail');
-Route::post('message/sms', 'API\MessageController@sendSMS');
+Route::post('message', 'API\MessageController@send');

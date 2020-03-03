@@ -3,10 +3,10 @@
 namespace App\Services\Company;
 
 use App\Model\Company;
-use App\Services\BaseServiceInterface;
+use App\Services\QueryInterface;
 use Illuminate\Http\Request;
 
-class QueryCompanyService implements BaseServiceInterface
+class QueryCompanyService implements QueryInterface
 {
     protected $company;
 
@@ -55,7 +55,7 @@ class QueryCompanyService implements BaseServiceInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : object
+    public function findByID(int $id) : ?object
     {
         return $this->company->find($id);
     }

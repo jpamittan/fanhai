@@ -2,14 +2,14 @@
 
 namespace App\Services\Message;
 
-use App\Services\EmailServiceInterface;
+use App\Services\NotificationInterface;
 use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class EmailMessageService implements EmailServiceInterface
+class EmailNotification implements NotificationInterface
 {
-    public function sendMail(Request $request) : bool
+    public function send(Request $request) : bool
     {
         $mail = new PHPMailer(true);
 
