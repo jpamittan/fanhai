@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.18, for macos10.14 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
 -- Host: 127.0.0.1    Database: bogsoft
 -- ------------------------------------------------------
--- Server version	5.7.26
+-- Server version	5.5.5-10.4.11-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,21 +21,16 @@
 
 DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from` int(11) DEFAULT NULL,
-  `to` int(11) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `msg` varchar(50) DEFAULT NULL,
-  `type` varchar(10) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `fk_message_1_idx` (`from`,`to`),
-  KEY `fk_message_2_idx` (`to`),
-  CONSTRAINT `fk_message_1` FOREIGN KEY (`from`) REFERENCES `phonebook` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_message_2` FOREIGN KEY (`to`) REFERENCES `phonebook` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `to` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `msg` text NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +39,6 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,1,2,'Bogsoft test email','This is a test email','email','2020-02-28 16:51:19'),(2,1,2,'Bogsoft test email','Test sms','sms','2020-02-28 16:51:28');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-03  3:41:05
+-- Dump completed on 2020-03-04  6:10:20
