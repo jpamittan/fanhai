@@ -24,7 +24,7 @@ class EmailNotification implements NotificationInterface
             $mail->Port = env('MAIL_PORT');
 
             $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-            $mail->addAddress($request->input('email'));
+            $mail->addAddress($request->input('to'));
 
             $mail->isHTML(true);
             $mail->Subject = $request->input('title');

@@ -13,18 +13,14 @@ class NotificationFactory
      * @param String $type
      * @return object
      */
-    public function initializeNotification(String $type) : object
+    public function initializeNotification(String $type = '') : object
     {
-        switch (strtolower($type)) {
-		    case "email":
-		        return new EmailNotification();
-		        break;
-		    case "sms":
-		        return new SMSNotification();
-		        break;
+    	if (empty($type)) {
+    		$notificationClass = "\\App\\Services\\Message\\EmailNotification";
+    	} else {
+    		$notificationClass = "\\App\\Services\\Message\\{$type}";
+    	}
 
-		    default:
-		        throw new Exception("Unsupported notification method.");
-		}
+		return new $notificationClass;
     }
 }

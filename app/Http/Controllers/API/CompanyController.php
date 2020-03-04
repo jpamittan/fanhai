@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
+use App\Model\Company;
 use App\Services\Company\QueryCompanyService;
 
 class CompanyController extends Controller
@@ -29,11 +30,11 @@ class CompanyController extends Controller
     {
         try {
             $companies = $this->queryCompanyService->getAllPaginatedRecords();
-
-            return response()->json($companies, 200);
         } catch(Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
+
+        return response()->json($companies, 200);
     }
 
     /**
@@ -42,15 +43,15 @@ class CompanyController extends Controller
      * @param  App\Http\Requests\CompanyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRequest $request) : Object
+    public function store(CompanyRequest $request) : Company
     {
         try {
             $company = $this->queryCompanyService->create($request);
-
-            return response()->json($company, 201);
         } catch(Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
+
+        return $company;
     }
 
     /**
@@ -59,15 +60,15 @@ class CompanyController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id) : Object
+    public function show(int $id) : Company
     {
         try {
             $company = $this->queryCompanyService->findByID($id);
-
-            return response()->json($company, 200);
         } catch(Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
+
+        return $company;
     }
 
     /**
@@ -76,15 +77,15 @@ class CompanyController extends Controller
      * @param  App\Http\Requests\CompanyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyRequest $request) : Object
+    public function update(CompanyRequest $request) : Company
     {
         try {
             $company = $this->queryCompanyService->udpateByID($request);
-
-            return response()->json($company, 200);
-        } catch(Exception $e) {s
+        } catch(Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
+
+        return $company;
     }
 
     /**
@@ -97,18 +98,18 @@ class CompanyController extends Controller
     {
         try {
             $company = $this->queryCompanyService->deleteById($id);
-
-            if($company) {
-                return response()->json([
-                    "msg" => "Record deleted successfully."
-                ], 200);
-            } else {
-                return response()->json([
-                    "msg" => "No record to be deleted."
-                ], 404);
-            }
         } catch(Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
+        }
+
+        if($company) {
+            return response()->json([
+                "msg" => "Record deleted successfully."
+            ], 200);
+        } else {
+            return response()->json([
+                "msg" => "No record to be deleted."
+            ], 404);
         }
     }
 }

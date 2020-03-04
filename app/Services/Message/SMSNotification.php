@@ -12,7 +12,7 @@ class SMSNotification implements NotificationInterface
         try {
 			$ch = curl_init();
 			$itexmo = array(
-				'1' => $request->input('mobile'),
+				'1' => $request->input('to'),
 				'2' => $request->input('msg'),
 				'3' => env('ITEXTMO_API_KEY')
 			);

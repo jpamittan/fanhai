@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class PhonebookRequest extends FormRequest
+class MessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class PhonebookRequest extends FormRequest
             "to" => 'required|string',
             "title" => 'nullable|string|max:50',
             "msg" => 'required|string',
-            "type" => 'required|string'
+            "type" => 'string|max:100'
         ];
     }
 }
