@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: bogsoft
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.11-MariaDB
+-- Server version	5.7.29-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,8 +29,8 @@ CREATE TABLE `employee` (
   `mname` varchar(45) DEFAULT NULL,
   `lname` varchar(45) NOT NULL,
   `position` varchar(45) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1 = Active\\n0= Disabled',
-  `created_at` datetime DEFAULT current_timestamp(),
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 = Active\\n0= Disabled',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_1_idx` (`department_id`),
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-04  6:10:20
+-- Dump completed on 2020-03-04 17:58:25
