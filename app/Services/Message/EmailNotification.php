@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class EmailNotification implements NotificationInterface
 {
-    public function send(Request $request) : bool
+    public function send(Request $request): bool
     {
         $mail = new PHPMailer(true);
 
@@ -31,6 +31,7 @@ class EmailNotification implements NotificationInterface
             $mail->Body = $request->input('msg');
 
             $mail->send();
+
             return true;
         } catch (Exception $e) {
             return false;

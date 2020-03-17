@@ -24,7 +24,7 @@ class QueryMessageService
      *
      * @return object
      */
-    public function getAllPaginatedRecords() : object
+    public function getAllPaginatedRecords(): object
     {
         return $this->message->paginate();
     }
@@ -35,7 +35,7 @@ class QueryMessageService
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function create(Request $request) : object
+    public function create(Request $request): object
     {
         $message = $this->message->create([
             'to' => $request->input('to'),
@@ -53,7 +53,7 @@ class QueryMessageService
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : ?object
+    public function findByID(int $id): ?object
     {
         return $this->message->find($id);
     }

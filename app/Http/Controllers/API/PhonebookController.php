@@ -9,7 +9,7 @@ use App\Services\Phonebook\QueryPhonebookService;
 class PhonebookController extends Controller
 {
     private $queryPhonebookService;
-  
+
     /**
      * Constructor
      *
@@ -25,13 +25,13 @@ class PhonebookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : Object
+    public function index(): Object
     {
         try {
             $phonebooks = $this->queryPhonebookService->getAllPaginatedRecords();
 
             return response()->json($phonebooks, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -42,13 +42,13 @@ class PhonebookController extends Controller
      * @param  App\Http\Requests\PhonebookRequests $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PhonebookRequest $request) : Object
+    public function store(PhonebookRequest $request): Object
     {
         try {
             $phonebook = $this->queryPhonebookService->create($request);
 
             return response()->json($phonebook, 201);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -59,13 +59,13 @@ class PhonebookController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id) : Object
+    public function show(int $id): Object
     {
         try {
             $phonebook = $this->queryPhonebookService->findByID($id);
 
             return response()->json($phonebook, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -76,13 +76,13 @@ class PhonebookController extends Controller
      * @param  App\Http\Requests\PhonebookRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(PhonebookRequest $request) : Object
+    public function update(PhonebookRequest $request): Object
     {
         try {
             $phonebook = $this->queryPhonebookService->udpateByID($request);
 
             return response()->json($phonebook, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -93,12 +93,12 @@ class PhonebookController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(int $id) : Object
+    public function delete(int $id): Object
     {
         try {
             $phonebook = $this->queryPhonebookService->deleteById($id);
 
-            if($phonebook) {
+            if ($phonebook) {
                 return response()->json([
                     "msg" => "Record deleted successfully."
                 ], 200);
@@ -107,7 +107,7 @@ class PhonebookController extends Controller
                     "msg" => "No record to be deleted."
                 ], 404);
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }

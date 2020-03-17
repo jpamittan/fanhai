@@ -25,7 +25,7 @@ class QueryCompanyService implements QueryInterface
      *
      * @return object
      */
-    public function getAllPaginatedRecords() : object
+    public function getAllPaginatedRecords(): object
     {
         return $this->company->orderBy('created_at', 'desc')->paginate();
     }
@@ -36,7 +36,7 @@ class QueryCompanyService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function create(Request $request) : object
+    public function create(Request $request): object
     {
         $company = $this->company->create([
             'name' => $request->input('name'),
@@ -55,7 +55,7 @@ class QueryCompanyService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : ?object
+    public function findByID(int $id): ?object
     {
         return $this->company->find($id);
     }
@@ -66,23 +66,23 @@ class QueryCompanyService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function udpateByID(Request $request) : object
+    public function udpateByID(Request $request): object
     {
         $company = $this->company->find($request->route('id'));
 
-        if($request->input('name')) {
+        if ($request->input('name')) {
             $company->name = $request->input('name');
         }
-        if($request->input('address')) {
+        if ($request->input('address')) {
             $company->address = $request->input('address');
         }
-        if($request->input('email')) {
+        if ($request->input('email')) {
             $company->email = $request->input('email');
         }
-        if($request->input('contact')) {
+        if ($request->input('contact')) {
             $company->contact = $request->input('contact');
         }
-        if($request->input('logo')) {
+        if ($request->input('logo')) {
             $company->logo = $request->input('logo');
         }
         $company->save();
@@ -96,7 +96,7 @@ class QueryCompanyService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return $this->company->destroy($id);
     }

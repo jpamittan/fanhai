@@ -9,7 +9,7 @@ use App\Services\Employee\QueryEmployeeService;
 class EmployeeController extends Controller
 {
     private $queryEmployeeService;
-  
+
     /**
      * Constructor
      *
@@ -25,13 +25,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : Object
+    public function index(): Object
     {
         try {
             $employees = $this->queryEmployeeService->getAllPaginatedRecords();
 
             return response()->json($employees, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -42,13 +42,13 @@ class EmployeeController extends Controller
      * @param  App\Http\Requests\EmployeeRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmployeeRequest $request) : Object
+    public function store(EmployeeRequest $request): Object
     {
         try {
             $employee = $this->queryEmployeeService->create($request);
 
             return response()->json($employee, 201);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -59,13 +59,13 @@ class EmployeeController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id) : Object
+    public function show(int $id): Object
     {
         try {
             $employee = $this->queryEmployeeService->findByID($id);
 
             return response()->json($employee, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -76,13 +76,13 @@ class EmployeeController extends Controller
      * @param  App\Http\Requests\EmployeeRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request) : Object
+    public function update(EmployeeRequest $request): Object
     {
         try {
             $employee = $this->queryEmployeeService->udpateByID($request);
 
             return response()->json($employee, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -93,12 +93,12 @@ class EmployeeController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(int $id) : Object
+    public function delete(int $id): Object
     {
         try {
             $employee = $this->queryEmployeeService->deleteById($id);
 
-            if($employee) {
+            if ($employee) {
                 return response()->json([
                     "msg" => "Record deleted successfully."
                 ], 200);
@@ -107,7 +107,7 @@ class EmployeeController extends Controller
                     "msg" => "No record to be deleted."
                 ], 404);
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }

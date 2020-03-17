@@ -6,5 +6,5 @@ use Illuminate\Http\Request;
 
 interface NotificationInterface
 {
-    public function send(Request $request) : bool;
+    public function send(Request $request): bool;
 }

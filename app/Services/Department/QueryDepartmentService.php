@@ -26,7 +26,7 @@ class QueryDepartmentService implements QueryInterface
      *
      * @return object
      */
-    public function getAllPaginatedRecords() : object
+    public function getAllPaginatedRecords(): object
     {
         return $this->department->paginate();
     }
@@ -37,7 +37,7 @@ class QueryDepartmentService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function create(Request $request) : object
+    public function create(Request $request): object
     {
         $department = $this->department->create([
             'company_id' => $request->input('company_id'),
@@ -53,7 +53,7 @@ class QueryDepartmentService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : ?object
+    public function findByID(int $id): ?object
     {
         return $this->department->where('company_id', $id)->get();
     }
@@ -64,13 +64,13 @@ class QueryDepartmentService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function udpateByID(Request $request) : object
+    public function udpateByID(Request $request): object
     {
         $department = $this->department->find($request->route('id'));
-        if($request->input('company_id')) {
+        if ($request->input('company_id')) {
             $department->company_id = $request->input('company_id');
         }
-        if($request->input('name')) {
+        if ($request->input('name')) {
             $department->name = $request->input('name');
         }
         $department->save();
@@ -84,7 +84,7 @@ class QueryDepartmentService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return $this->department->destroy($id);
     }

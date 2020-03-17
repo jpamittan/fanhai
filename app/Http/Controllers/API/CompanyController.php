@@ -10,7 +10,7 @@ use App\Services\Company\QueryCompanyService;
 class CompanyController extends Controller
 {
     private $queryCompanyService;
-  
+
     /**
      * Constructor
      *
@@ -26,11 +26,11 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : Object
+    public function index(): Object
     {
         try {
             $companies = $this->queryCompanyService->getAllPaginatedRecords();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
 
@@ -43,11 +43,11 @@ class CompanyController extends Controller
      * @param  App\Http\Requests\CompanyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRequest $request) : Company
+    public function store(CompanyRequest $request): Company
     {
         try {
             $company = $this->queryCompanyService->create($request);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
 
@@ -60,11 +60,11 @@ class CompanyController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id) : Company
+    public function show(int $id): Company
     {
         try {
             $company = $this->queryCompanyService->findByID($id);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
 
@@ -77,11 +77,11 @@ class CompanyController extends Controller
      * @param  App\Http\Requests\CompanyRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyRequest $request) : Company
+    public function update(CompanyRequest $request): Company
     {
         try {
             $company = $this->queryCompanyService->udpateByID($request);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
 
@@ -94,15 +94,15 @@ class CompanyController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(int $id) : Object
+    public function delete(int $id): Object
     {
         try {
             $company = $this->queryCompanyService->deleteById($id);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
 
-        if($company) {
+        if ($company) {
             return response()->json([
                 "msg" => "Record deleted successfully."
             ], 200);

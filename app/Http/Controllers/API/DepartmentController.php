@@ -9,7 +9,7 @@ use App\Services\Department\QueryDepartmentService;
 class DepartmentController extends Controller
 {
     private $queryDepartmentService;
-  
+
     /**
      * Constructor
      *
@@ -25,13 +25,13 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : Object
+    public function index(): Object
     {
         try {
             $departments = $this->queryDepartmentService->getAllPaginatedRecords();
 
             return response()->json($departments, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -42,13 +42,13 @@ class DepartmentController extends Controller
      * @param  App\Http\Requests\DepartmentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartmentRequest $request) : Object
+    public function store(DepartmentRequest $request): Object
     {
         try {
             $department = $this->queryDepartmentService->create($request);
 
             return response()->json($department, 201);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -59,13 +59,13 @@ class DepartmentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id) : Object
+    public function show(int $id): Object
     {
         try {
             $department = $this->queryDepartmentService->findByID($id);
 
             return response()->json($department, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -76,13 +76,13 @@ class DepartmentController extends Controller
      * @param  App\Http\Requests\DepartmentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentRequest $request) : Object
+    public function update(DepartmentRequest $request): Object
     {
         try {
             $department = $this->queryDepartmentService->udpateByID($request);
 
             return response()->json($department, 200);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }
@@ -93,12 +93,12 @@ class DepartmentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(int $id) : Object
+    public function delete(int $id): Object
     {
         try {
             $department = $this->queryDepartmentService->deleteById($id);
 
-            if($department) {
+            if ($department) {
                 return response()->json([
                     "msg" => "Record deleted successfully."
                 ], 200);
@@ -107,7 +107,7 @@ class DepartmentController extends Controller
                     "msg" => "No record to be deleted."
                 ], 404);
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 501);
         }
     }

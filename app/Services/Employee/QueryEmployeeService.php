@@ -25,7 +25,7 @@ class QueryEmployeeService implements QueryInterface
      *
      * @return object
      */
-    public function getAllPaginatedRecords() : object
+    public function getAllPaginatedRecords(): object
     {
         return $this->employee->where('status', 1)->paginate();
     }
@@ -36,7 +36,7 @@ class QueryEmployeeService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function create(Request $request) : object
+    public function create(Request $request): object
     {
         $employee = $this->employee->create([
             'department_id' => $request->input('department_id'),
@@ -55,7 +55,7 @@ class QueryEmployeeService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : ?object
+    public function findByID(int $id): ?object
     {
         return $this->employee->where('department_id', $id)
             ->join('phonebook', 'employee.id', '=', 'phonebook.employee_id')
@@ -68,25 +68,25 @@ class QueryEmployeeService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function udpateByID(Request $request) : object
+    public function udpateByID(Request $request): object
     {
         $employee = $this->employee->find($request->route('id'));
-        if($request->input('department_id')) {
+        if ($request->input('department_id')) {
             $employee->department_id = $request->input('department_id');
         }
-        if($request->input('fname')) {
+        if ($request->input('fname')) {
             $employee->fname = $request->input('fname');
         }
-        if($request->input('mname')) {
+        if ($request->input('mname')) {
             $employee->mname = $request->input('mname');
         }
-        if($request->input('lname')) {
+        if ($request->input('lname')) {
             $employee->lname = $request->input('lname');
         }
-        if($request->input('position')) {
+        if ($request->input('position')) {
             $employee->position = $request->input('position');
         }
-        if($request->input('status')) {
+        if ($request->input('status')) {
             $employee->status = $request->input('status');
         }
         $employee->save();
@@ -100,10 +100,10 @@ class QueryEmployeeService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return $this->employee->where('id', $id)
-        ->where('status', 1)
-        ->update(['status' => 0]);
+            ->where('status', 1)
+            ->update(['status' => 0]);
     }
 }

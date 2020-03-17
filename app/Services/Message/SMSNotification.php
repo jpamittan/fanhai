@@ -23,8 +23,9 @@ class SMSNotification implements NotificationInterface
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_exec ($ch);
 			curl_close ($ch);
+			
 			return true;
-        } catch(xception $e) {
+        } catch (Exception $e) {
         	return false;
         }
     }

@@ -25,7 +25,7 @@ class QueryPhonebookService implements QueryInterface
      *
      * @return object
      */
-    public function getAllPaginatedRecords() : object
+    public function getAllPaginatedRecords(): object
     {
         return $this->phonebook->paginate();
     }
@@ -36,7 +36,7 @@ class QueryPhonebookService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function create(Request $request) : object
+    public function create(Request $request): object
     {
         $phonebook = $this->phonebook->create([
             'employee_id' => $request->input('employee_id'),
@@ -57,7 +57,7 @@ class QueryPhonebookService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function findByID(int $id) : ?object
+    public function findByID(int $id): ?object
     {
         return $this->phonebook->find($id);
     }
@@ -68,29 +68,29 @@ class QueryPhonebookService implements QueryInterface
      * @param \Illuminate\Http\Request $request
      * @return object
      */
-    public function udpateByID(Request $request) : object
+    public function udpateByID(Request $request): object
     {
         $phonebook = $this->phonebook->find($request->route('id'));
 
-        if($request->input('employee_id')) {
+        if ($request->input('employee_id')) {
             $phonebook->employee_id = $request->input('employee_id');
         }
-        if($request->input('address')) {
+        if ($request->input('address')) {
             $phonebook->address = $request->input('address');
         }
-        if($request->input('work_email')) {
+        if ($request->input('work_email')) {
             $phonebook->work_email = $request->input('work_email');
         }
-        if($request->input('email')) {
+        if ($request->input('email')) {
             $phonebook->email = $request->input('email');
         }
-        if($request->input('home_phone')) {
+        if ($request->input('home_phone')) {
             $phonebook->home_phone = $request->input('home_phone');
         }
-        if($request->input('work_phone')) {
+        if ($request->input('work_phone')) {
             $phonebook->work_phone = $request->input('work_phone');
         }
-        if($request->input('mobile_phone')) {
+        if ($request->input('mobile_phone')) {
             $phonebook->mobile_phone = $request->input('mobile_phone');
         }
         $phonebook->save();
@@ -104,7 +104,7 @@ class QueryPhonebookService implements QueryInterface
      * @param int $id
      * @return object
      */
-    public function deleteById(int $id) : bool
+    public function deleteById(int $id): bool
     {
         return $this->phonebook->destroy($id);
     }
